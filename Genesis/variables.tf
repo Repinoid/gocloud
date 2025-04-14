@@ -11,6 +11,7 @@ folder-id: b1gj6dgm692ri5dl865t
 compute-default-zone: ru-central1-b
 
 */
+
 variable "cloud_id" {
 	type = string
 	default = "b1gatc4m3hv1ldldhljp"

@@ -27,7 +27,7 @@ https://yandex.cloud/ru/blog/posts/2023/11/about-serverless
 10 ГБ×час выполнения функций.
 ```
 Правила тарификации для Cloud Functions https://yandex.cloud/ru/docs/functions/pricing<br>
-Подобные правила тарификации и для иных ресурмов Облака что мы будем использовать - База Данных, триггеры, очереди<br>
+Подобные правила тарификации и для иных ресурмов Облака, которые мы будем использовать, - API-шлюз, База Данных, триггеры, очередь<br>
 То есть, можно ***бесплатно*** соорудить микросервисную систему в надёжной среде Облака <br>
 *«Die Young» © Black Sabbath* <br>
 Но такая функция не может функционировать долго - максимум 10 минут<br>
@@ -38,4 +38,4 @@ https://yandex.cloud/ru/docs/functions/quickstart/create-function/go-function-qu
 через CLI - интерфейс командной строки (Command Line Interface) и, что будем воплощать - <br>
 Terraform https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart<br>
 *Terraform позволяет быстро создать облачную инфраструктуру в Yandex Cloud и управлять ею с помощью файлов конфигураций.*<hr>
-Начнём в Genesis с настройки облака и терраформа и будем добавлять функционал
+Начнём в п.1 с настройки облака и терраформа и будем добавлять функционал
