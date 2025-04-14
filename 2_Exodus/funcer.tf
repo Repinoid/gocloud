@@ -43,7 +43,6 @@ resource "yandex_function_iam_binding" "function-iamw" {
   role        = "functions.functionInvoker"
   # members список сервисов, которые могут вызывать функцию
   members = [  
-    #"serviceAccount:${yandex_iam_service_account.goy-sa.id}",
     "system:allUsers", # делает функцию публичной, можно запускать через HTTP
   ]
 }

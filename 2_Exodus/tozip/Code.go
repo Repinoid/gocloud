@@ -6,11 +6,11 @@ import (
 )
 
 type Response struct {
-	StatusCode int         `json:"statusCode"`
-	Body       interface{} `json:"body"`
+	StatusCode int    `json:"statusCode"`
+	Body       string `json:"body"`
 }
 
-//goland:noinspection GoUnusedExportedFunction
+// Sender получает метрики и формирует Body респонса
 func Sender(ctx context.Context) (*Response, error) {
 	metras := GetMetric()
 	outer := ""
