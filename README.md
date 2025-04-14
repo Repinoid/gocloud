@@ -1,7 +1,7 @@
 ## Инициализация терраформа
 
-Проект-минимум на Golang в Yandex Cloud c использованием Terraform, <br>
-serverless функций, serverless Базы Данных и Yandex Message Queue (очередь сообщений)<hr>
+*Проект-минимум на Golang в Yandex Cloud c использованием Terraform, <br>
+serverless функций, serverless Базы Данных и Yandex Message Queue (очередь сообщений)*<hr>
 1. настройка Command Line Interface
 2. создание функции  - получение runtime-метрик c вывод на экран
 3. создание базы данных, функций записи метрик в таблицу
