@@ -12,7 +12,7 @@ serverless функций, serverless Базы Данных и Yandex Message Qu
 Что такое serveless можно вычитать в т.ч. здесь - 
 https://yandex.cloud/ru/blog/posts/2023/11/about-serverless
 
-От себя  не академично -
+От себя  не академично -<br>
 В обычном варианте надо арендовать в облаке "железо" - процессор, оперативную память, дисковое пространство. И платить вне зависимости от нагрузки.<br>
 *Калькулятор стоимости https://yandex.cloud/ru/prices?state=f2dac101335a#calculator*<br>
 Установить на эту виртуальную машину операционку, софт и всё это дело поддерживать.<br>
@@ -24,7 +24,9 @@ https://yandex.cloud/ru/blog/posts/2023/11/about-serverless
 Каждый месяц не тарифицируются первые:<br>
 1 000 000 вызовов функций;<br>
 10 ГБ×час выполнения функций.<br>
-https://yandex.cloud/ru/docs/functions/pricing<br>
+Правила тарификации для Cloud Functions https://yandex.cloud/ru/docs/functions/pricing<br>
+Подобные правила тарификации и для иных ресурмов Облака что мы будем использовать - База Данных, триггеры, очереди<br>
+То есть, можно ***бесплатно*** соорудить микросервисную систему в надёжной среде Облака <br>
 *«Die Young» © Black Sabbath* <br>
 Но такая функция не может функционировать долго - максимум 10 минут<br>
 https://yandex.cloud/ru/docs/functions/concepts/limits#functions-limits<br>
