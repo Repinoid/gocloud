@@ -11,15 +11,16 @@ type Response struct {
 }
 
 //goland:noinspection GoUnusedExportedFunction
-func Receiver(ctx context.Context) (*Response, error) {
+func Sender(ctx context.Context) (*Response, error) {
 	metras := GetMetric()
+	outer := ""
 
 	for metr, value := range metras {
-		fmt.Printf("%20s\t\t%g\n", metr, value)
+		outer += fmt.Sprintf("%20s\t\t%g\n", metr, value)
 	}
 
 	return &Response{
 		StatusCode: 200,
-		Body:       metras,
+		Body:       outer,
 	}, nil
 }

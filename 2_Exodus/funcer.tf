@@ -6,7 +6,7 @@ resource "yandex_iam_service_account" "goy-sa" {
 }
 # create  static ACCESS KEY
 resource "yandex_iam_service_account_static_access_key" "goy-static-key" {
-  service_account_id = yandex_iam_service_account.goy-writer-sa.id
+  service_account_id = yandex_iam_service_account.goy-sa.id
   description        = "Static Key for goy"
 }
 # create role for service account
