@@ -2,11 +2,12 @@
 
 *Проект-минимум на Golang в Yandex Cloud c использованием Terraform, <br>
 serverless функций, serverless Базы Данных и Yandex Message Queue (очередь сообщений)*<hr>
-1. настройка Command Line Interface, Terrafrom
-2. создание функции  - получение runtime-метрик c вывод на экран
-3. OpenAPI - облачный HTTP рутер. Cоздание базы данных, функций записи метрик в таблицу
-4. создание триггера вызова функции
-5. Создание очереди для раздения отправителя метрик от получателя (БД)
+1. Genesis. \tНастройка Command Line Interface, Terrafrom
+2. Exodus. Создание функции  - получение runtime-метрик c вывод на экран
+3. Leviticus. Cоздание базы данных, функций записи метрик в таблицу
+4. Numbers. OpenAPI - облачный HTTP рутер. 
+5. Deuteronomy. создание триггера вызова функции
+6. Joshua. Создание очереди для раздения отправителя метрик от получателя (БД)
 
 Что такое serveless можно вычитать в т.ч. здесь - 
 https://yandex.cloud/ru/blog/posts/2023/11/about-serverless
