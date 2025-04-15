@@ -50,7 +50,8 @@ terraform apply
 По отладке - внесите в код ошибку, да хоть объявленную но неиспользуемую переменную<br>
 Терраформ радостно выдаст **Apply complete! Resources: 0 added, 1 changed, 0 destroyed.**<br>
 Но чуть выше - **Warning: Failed to create version for Yandex Cloud Function**<br>
-И длинная ссылка на страницу с ошибкой типа https://storage.yandexcloud.net/build-logs/b1gatc4m3hv1lbjv.output?X-Amz-Algorithm=AWS4-HMAC-SHAблаблабла...<br><br>
+И длинная ссылка на страницу с ошибкой типа<br> 
+https://storage.yandexcloud.net/build-logs/b1gatc4m3hv1lbjv.output?X-Amz-Algorithm=AWS4-HMAC-SHAблаблабла...<br><br>
 В Консоли Облака на странице ***Cloud Functions / Функции / goy-func*** можно посмотреть логи и мониторинг<br>
 
 Закомментируйте в funcer.tf ресурс <ins>yandex_function_iam_binding</ins><br>
