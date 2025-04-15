@@ -12,7 +12,7 @@ type Response struct {
 
 // Sender получает метрики и формирует Body респонса
 func Sender(ctx context.Context) (*Response, error) {
-	metras := GetMetric()
+	metras := GetRuntimeMetric()
 	outer := ""
 
 	for metr, value := range metras {

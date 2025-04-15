@@ -2,7 +2,7 @@
 
 *Проект-минимум на Golang в Yandex Cloud c использованием Terraform, <br>
 serverless функций, serverless Базы Данных и Yandex Message Queue (очередь сообщений)*<hr>
-1. Genesis. \tНастройка Command Line Interface, Terrafrom
+1. Genesis. Настройка Command Line Interface, Terrafrom
 2. Exodus. Создание функции  - получение runtime-метрик c вывод на экран
 3. Leviticus. Cоздание базы данных, функций записи метрик в таблицу
 4. Numbers. OpenAPI - облачный HTTP рутер. 

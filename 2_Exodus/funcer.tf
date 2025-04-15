@@ -41,15 +41,17 @@ resource "yandex_function" "goy" {
   content { zip_filename = "goim.zip" }
 }
 
-# # роль functions.functionInvoker - КТО может вызывать функцию function_id :
-# resource "yandex_function_iam_binding" "function-iamw" {
-#   function_id = yandex_function.goy.id
-#   role        = "functions.functionInvoker"
-#   # members список сервисов, которые могут вызывать функцию
-#   members = [  
-#     "system:allUsers", # делает функцию публичной, можно запускать через HTTP
-#   ]
-# }
+# роль functions.functionInvoker - КТО может вызывать функцию function_id :
+resource "yandex_function_iam_binding" "function-iamw" {
+  function_id = yandex_function.goy.id
+  role        = "functions.functionInvoker"
+  # members список сервисов, которые могут вызывать функцию
+  members = [  
+    "system:allUsers", # делает функцию публичной, можно запускать через HTTP
+  ]
+}
+
+
 # output - вывод в консоль URL публичной функции
 output "metrics_func" {
   value = "   https://functions.yandexcloud.net/${yandex_function.goy.id}  "

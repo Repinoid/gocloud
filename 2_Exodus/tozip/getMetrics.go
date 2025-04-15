@@ -10,7 +10,7 @@ import (
 var mS runtime.MemStats
 
 // GetMetric() - get runtime Metrics
-func GetMetric() map[string]float64 {
+func GetRuntimeMetric() map[string]float64 {
 
 	v, _ := mem.VirtualMemory()
 	cc, _ := cpu.Counts(true)
