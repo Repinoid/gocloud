@@ -16,12 +16,24 @@ https://yandex.cloud/ru/docs/ydb/pricing/serverless
 ```
 На странице созданной Базы Данных копируете Эндпоинт, выглядящий как  <br>
 ***grpcs://ydb.serverless.yandexcloud.net:2135/?database=/ru-central1/......***<br>
-и прописываете это в variables.tf там где variable "dbEndpoint" в  default=<br>
-
+Скопируйте **variables.tf** из предыдущей темы Exodus и добавьте в него эти строки с вашим эндпоинтом в поле default
+```
+variable "dbEndpoint" {
+	type = string
+	default = "grpcs://ydb.serverless.yandexcloud.net:2135/?database=/ru-central1/b1ga........"
+}
+```
 Далее всё за вас сделает Terraform, первым делом создав таблицу metrics<br>
-
-
+Как обычно, первым делом 
+```
+terraform init
+```
+Затем
+```
+terraform apply
 yc serverless function list
+```
+Три функции
 ```
 goy-func
 write-to-db
@@ -30,8 +42,10 @@ read-from-db
 ```
 yc serverless function invoke write-to-db
 ```
-{"statusCode":200,"body":"Ok db.Endpoint ydb.serverless.yandexcloud.net:2135"}
+Выведет *{"statusCode":200,"body":"Ok db.Endpoint ydb.serverless.yandexcloud.net:2135"}*
 ```
 yc serverless function invoke read-from-db
 ```
-{"statusCode":200,"body":[{"mname":"Alloc","mvalue":11954960,"mdate":"2025-04-15T17:33:06Z"},
+*{"statusCode":200,"body":[{"mname":"Alloc","mvalue":11954960,"mdate":"2025-04-15T17:33:06Z"},* и прочие метрики<br>
+
+База данных заработала. Можете посмотреть в Консоли Облака, войдя в Managed Service for YDB / выша база / metrics<br>
