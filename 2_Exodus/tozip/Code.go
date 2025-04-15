@@ -18,7 +18,7 @@ func Sender(ctx context.Context) (*Response, error) {
 	for metr, value := range metras {
 		outer += fmt.Sprintf("%20s\t\t%g\n", metr, value)
 	}
-
+	fmt.Print("Serverless works NOW !!!")
 	return &Response{
 		StatusCode: 200,
 		Body:       outer,

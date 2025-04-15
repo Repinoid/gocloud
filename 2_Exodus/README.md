@@ -41,11 +41,45 @@ terraform apply
 Когда надоест соглашаться, пишите **terraform apply -auto-approve**<hr>
 По итогу выведется metrics_func = "https://functions.yandexcloud.net/чегототам"<br>
 Сходите на этот URL и любуйтесь<br>
+Или, что более технично, выполните в терминале **curl https://functions.yandexcloud.net/чегототам**<br>
 
 Как упоминал выше, сам только что обнаружил, что для функций, не обращающейся к другим ресурсам Облака, не надо указывать ни сервисный аккаунт, ни переменные окружения.<br>
 Попробуте закомментировать лишние ресурсы, оставьте только сам ресурс функции и <ins>yandex_function_iam_binding</ins><br>
 и запустить **terraform apply -auto-approve** - увидите, как удаляются закомментированные ресурсы<br>
-Также можно в коде Code.go пару пробeлoв поставить, чтобы хеш архива изменился, произойдёт перекомпилляция<br>
+Также можно в коде Code.go пару пробeлoв поставить, чтобы хеш архива изменился, произойдёт перекомпилляция<hr>
+По отладке - внесите в код ошибку, да хоть объявленную но неиспользуемую переменную<br>
+Терраформ радостно выдаст **Apply complete! Resources: 0 added, 1 changed, 0 destroyed.**<br>
+Но чуть выше - **Warning: Failed to create version for Yandex Cloud Function**<br>
+И длинная ссылка на страницу с ошибкой типа https://storage.yandexcloud.net/build-logs/b1gatc4m3hv1lbjv.output?X-Amz-Algorithm=AWS4-HMAC-SHAблаблабла...<br><br>
+В Консоли Облака на странице ***Cloud Functions / Функции / goy-func*** можно посмотреть логи и мониторинг<br>
+
+{"errorCode":403,"errorMessage":"Forbidden: Not authorized","errorType":"ClientError"}
+Закомментируйте в funcer.tf ресурс <ins>yandex_function_iam_binding</ins><br>
+Соберите проект - **terraform apply**. <br>
+Выдаст **Apply complete! Resources: 0 added, 0 changed, 1 destroyed.**<br>
+Теперь ни у кого нет права вызывать функцию, при попытке запуска ***{"errorCode":403,"errorMessage":"Forbidden: Not authorized","errorType":"ClientError"}***<br>
+В терминале выполните 
+```
+**yc serverless function list**
+```
+В списке - ваша функция с именем ***goy-func***<br>
+Надо бы пояснить за параметры ресурса. 
+Например, в ***resource "yandex_function" "goy"*** **"yandex_function"** - это тип ресурса, **"goy"** - Reference Name<br>
+Reference Name используется только в самом Терраформе, для производных ссылок, формируемых через точки, например **yandex_function.goy.id** - идентификатор функции<br>
+А поле **name = "goy-func"** в описании ресурса, это собственно имя функции, видимое в Облаке<br>
+Reference Name и name могут быть одинаковыми, но, по моему, лучше их делать разными, для отладки или рефакторинга<br><br>
+Выполните в терминале
+```
+yc serverless function invoke goy-func
+```
+Функция выполнилась ! 
+*Bот что крест животворящий делает !©*
+Потому что вы - создатель и вседержитель всего этого виртуального хозяйства, и в данном случае вызов происходит от имени владельца, а у него есть роли на всё и вся<br>
+Просмотр логов *(можно, как упоминалось выше, и в Консоли)*
+```
+yc serverless function logs goy-func  
+```
+
 После изучения темы, выполните 
 ```
 terraform destroy

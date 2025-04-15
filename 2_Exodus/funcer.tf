@@ -30,28 +30,30 @@ resource "yandex_function" "goy" {
   entrypoint         = "Code.Sender"
   memory             = "256"
   execution_timeout  = "110"
-#  service_account_id = yandex_iam_service_account.goy-sa.id
-  # environment = {
-  #   AWS_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.goy-static-key.access_key
-  #   AWS_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.goy-static-key.secret_key
-  #   AWS_DEFAULT_REGION    = var.compute-default-zone
-  # }
+ service_account_id = yandex_iam_service_account.goy-sa.id
+  environment = {
+    AWS_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.goy-static-key.access_key
+    AWS_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.goy-static-key.secret_key
+    AWS_DEFAULT_REGION    = var.compute-default-zone
+  }
   // Хеш архива с кодом. Обновляется при внесении изменений в код. Если хеш неизменен - компилляция не запускается
   user_hash = data.archive_file.lambda.output_base64sha256 
   content { zip_filename = "goim.zip" }
 }
 
-# роль functions.functionInvoker - КТО может вызывать функцию function_id :
-resource "yandex_function_iam_binding" "function-iamw" {
-  function_id = yandex_function.goy.id
-  role        = "functions.functionInvoker"
-  # members список сервисов, которые могут вызывать функцию
-  members = [  
-    "system:allUsers", # делает функцию публичной, можно запускать через HTTP
-  ]
-}
+# # роль functions.functionInvoker - КТО может вызывать функцию function_id :
+# resource "yandex_function_iam_binding" "function-iamw" {
+#   function_id = yandex_function.goy.id
+#   role        = "functions.functionInvoker"
+#   # members список сервисов, которые могут вызывать функцию
+#   members = [  
+#     "system:allUsers", # делает функцию публичной, можно запускать через HTTP
+#   ]
+# }
 # output - вывод в консоль URL публичной функции
 output "metrics_func" {
-  value = "https://functions.yandexcloud.net/${yandex_function.goy.id}"
+  value = "   https://functions.yandexcloud.net/${yandex_function.goy.id}  "
 }
 
+// yc serverless function list
+// yc serverless function logs goy-func

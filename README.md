@@ -28,10 +28,10 @@ https://yandex.cloud/ru/blog/posts/2023/11/about-serverless
 Правила тарификации для Cloud Functions https://yandex.cloud/ru/docs/functions/pricing<br>
 Подобные правила тарификации и для иных ресурмов Облака, которые мы будем использовать, - API-шлюз, База Данных, триггеры, очередь<br>
 То есть, можно ***бесплатно*** соорудить микросервисную систему в надёжной среде Облака <br>
-*«Die Young» © Black Sabbath* <br>
+*Live fast, Die young ©* <br>
 Но такая функция не может функционировать долго - максимум 10 минут<br>
 https://yandex.cloud/ru/docs/functions/concepts/limits#functions-limits<br>
-*Оказалось, что прогресс не стоит на месте - можно запускать и на макс. 1 час, но  думаю, что это получится далеко небесплатно*<br>
+*Оказалось, что прогресс не стоит на месте - можно запускать и макс. на 1 час, но  думаю, что это получится далеко небесплатно*<br>
 https://yandex.cloud/ru/docs/functions/quickstart/create-function/go-function-quickstart
 Создать функции и другие ресурсы Облака можно несколькими способами, в .т.ч. через Консоль управления,<br> 
 через CLI - интерфейс командной строки (Command Line Interface) и, что будем воплощать - <br>
