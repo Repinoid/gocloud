@@ -5,10 +5,6 @@ import (
 	"fmt"
 )
 
-type Response struct {
-	StatusCode int         `json:"statusCode"`
-	Body       interface{} `json:"body"`
-}
 
 // Sender получает метрики и формирует Body респонса
 func Sender(ctx context.Context) (*Response, error) {

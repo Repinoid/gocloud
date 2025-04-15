@@ -24,3 +24,5 @@ column {
   primary_key = ["metricname"]
   
 }
+
+// https://terraform-provider.yandexcloud.net/resources/ydb_database_iam_binding

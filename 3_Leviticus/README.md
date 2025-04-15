@@ -24,7 +24,7 @@ variable "dbEndpoint" {
 }
 ```
 Далее всё за вас сделает Terraform, первым делом создав таблицу metrics<br>
-Как обычно, первым делом 
+Как обычно,  
 ```
 terraform init
 ```
