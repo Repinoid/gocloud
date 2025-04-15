@@ -19,7 +19,7 @@ funcer.tf - сначала создаётся Сервисный Аккаунт 
 Так как пока наша функция не будет обращаться к ресурсам облака, то роли его аккаунту не назначены<br>
 *И ... тут я понял, что в данной конфигурации функции ей вообще не нужен ни сервисный аккаунт, ни ключи, ни переменные окружения ... (см.ниже)*<br>
 
-До этого описывалось, ЧТО сама функция может делать в Облаке, а далее - КТО сможет запускать саму функцию.<br>
+До этого нами определялось, ЧТО сама функция может делать в Облаке, а далее пропишем - КТО сможет запускать саму функцию.<br>
 Ресурс типа **yandex_function_iam_binding** назначает роль ***functions.functionInvoker*** для **system:allUsers**<br>
 system:allUsers - означает  **для всех**, в т.ч. совсем сторонних, в. т.ч. и по HTTP<br>
 
@@ -53,11 +53,10 @@ terraform apply
 И длинная ссылка на страницу с ошибкой типа https://storage.yandexcloud.net/build-logs/b1gatc4m3hv1lbjv.output?X-Amz-Algorithm=AWS4-HMAC-SHAблаблабла...<br><br>
 В Консоли Облака на странице ***Cloud Functions / Функции / goy-func*** можно посмотреть логи и мониторинг<br>
 
-{"errorCode":403,"errorMessage":"Forbidden: Not authorized","errorType":"ClientError"}
 Закомментируйте в funcer.tf ресурс <ins>yandex_function_iam_binding</ins><br>
 Соберите проект - **terraform apply**. <br>
 Выдаст **Apply complete! Resources: 0 added, 0 changed, 1 destroyed.**<br>
-Теперь ни у кого нет права вызывать функцию, при попытке запуска ***{"errorCode":403,"errorMessage":"Forbidden: Not authorized","errorType":"ClientError"}***<br>
+Теперь ни у кого нет права вызывать функцию, при попытке запуска <br>***{"errorCode":403,"errorMessage":"Forbidden: Not authorized","errorType":"ClientError"}***<br>
 В терминале выполните 
 ```
 **yc serverless function list**
