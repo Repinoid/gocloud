@@ -8,17 +8,17 @@
 
 В файле api.tf описывается создание **resource "yandex_api_gateway" "apigat"**<br>
 В шаблон, находящийся в templa.yaml, подставляются идентификаторы функций, и терраформ формирует Gateway
-> Должно заметить, что расширение шаблонов должно быть **tftpl**, но с **yaml** VS Code проще работать
+> Должно заметить, что расширение шаблонов по науке должно быть **tftpl**, но с **yaml** VS Code проще работать
 
 Как всегда 
 - скопировать variables.tf из предыдущей темы
 - terraform init
 - terraform apply<br>
 По итогу - ссылка на URL API типа
-apiURL = "   d5------------i64.g3a---ln.apigw.yandexcloud.net  "<br>
+apiURL = "   d5------------i64.g3a---ln.apigw.yandexcloud.net  "<hr>
 Копируете то что меж кавычек, вставляете в браузер, получите ***Hello, every buddy!***
 - **URL/mlook** - запустится старый знакомый **goy**
 - **URL/mwrite** - метрики пропишутся в Базу
 - **URL/mread** - метрики считаются из Базы и выведутся на экран
-- **/update/{metric name}/{metric value}** - запись одной метрики в базу (типа update/Metra/77.77)
-- **/value/{metric name}** - считывание одной метрики из базу (типа value/Metra)
+- **URL/update/{metric name}/{metric value}** - запись одной метрики в базу (типа update/Metra/77.77)
+- **URL/value/{metric name}** - считывание одной метрики из базу (типа value/Metra)
