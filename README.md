@@ -2,12 +2,12 @@
 
 *Проект-минимум на Golang в Yandex Cloud c использованием Terraform, <br>
 serverless функций, serverless Базы Данных и Yandex Message Queue (очередь сообщений)*<hr>
-1. Genesis. Настройка Command Line Interface, Terrafrom
-2. Exodus. Создание функции  - получение runtime-метрик c вывод на экран
-3. Leviticus. Cоздание базы данных, функций записи метрик в таблицу
-4. Numbers. OpenAPI - облачный HTTP рутер. 
-5. Deuteronomy. создание триггера вызова функции <sub>to be continued</sub>
-6. Joshua. Создание очереди для раздения отправителя метрик от получателя (БД) <sub>to be continued</sub>
+1. ***Genesis.*** Настройка Command Line Interface, Terrafrom
+2. ***Exodus.*** Создание функции  - получение runtime-метрик c вывод на экран
+3. ***Leviticus.*** Cоздание базы данных, функций записи метрик в таблицу
+4. ***Numbers.*** OpenAPI - облачный HTTP рутер. 
+5. ***Deuteronomy.*** создание триггера вызова функции <sub>to be continued</sub>
+6. ***Joshua.*** Создание очереди для раздения отправителя метрик от получателя (БД) <sub>to be continued</sub>
 
 > *Предполагается, что у Вас есть полноценный аккаунт в Yandex*<br>
 Пару лет назад я писал нечто подобное в Yandex Cloud, но на Питоне. 
