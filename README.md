@@ -47,6 +47,6 @@ https://yandex.cloud/ru/docs/functions/concepts/limits#functions-limits<br>
 https://yandex.cloud/ru/docs/functions/quickstart/create-function/go-function-quickstart<br>
 Создать функции и другие ресурсы Облака можно несколькими способами, в .т.ч. через Консоль управления,<br> 
 через CLI - интерфейс командной строки (Command Line Interface) и, что будем воплощать - <br>
-Terraform https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart<br>
+***Terraform*** https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart<br>
 *Terraform позволяет быстро создать облачную инфраструктуру в Yandex Cloud и управлять ею с помощью файлов конфигураций.*<hr>
 Начнём в п.1 с настройки облака и терраформа и будем добавлять функционал
