@@ -26,3 +26,5 @@ column {
 }
 
 // https://terraform-provider.yandexcloud.net/resources/ydb_database_iam_binding
+
+// https://yandex.cloud/en/docs/functions/operations/trigger/timer-create
