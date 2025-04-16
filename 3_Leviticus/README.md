@@ -37,7 +37,7 @@ terraform init
 terraform apply
 yc serverless function list
 ```
-Три функции
+Есть три функции, две из них - новые
 ```
 goy-func
 write-to-db
