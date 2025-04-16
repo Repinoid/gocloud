@@ -82,3 +82,28 @@ func putMetrics2Base(ctx context.Context, db *ydb.Driver, metras map[string]floa
 
 	return nil
 }
+
+func puttyM(ctx context.Context, db *ydb.Driver, mname, mvalue string) (err error) {
+
+	order := fmt.Sprintf("UPSERT INTO metrics (metricname, value, updated_at) VALUES ('%s', %s, CurrentUtcDatetime() ) ;", mname, mvalue)
+
+	err = db.Query().Exec(ctx, order, query.WithTxControl(query.NoTx()))
+
+	return
+}
+
+func gettyM(ctx context.Context, db *ydb.Driver, mname string) (mvalue float64, err error) {
+
+	order := fmt.Sprintf("SELECT value FROM metrics WHERE metricname='%s'; ", mname)
+	row, err := db.Query().QueryRow(ctx, order, query.WithTxControl(query.NoTx()))
+	if err != nil {
+		return 0, err
+	}
+	
+	err = row.Scan(&mvalue)
+	if err != nil {
+		return 0, err
+	}
+
+	return
+}

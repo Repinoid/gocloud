@@ -31,7 +31,7 @@ resource "yandex_function" "write2bd" {
 
   runtime            = "golang121"
   // путь до функции
-  entrypoint         = "dbaser.WriteMetrics"  
+  entrypoint         = "handlers.WriteMetrics"  
   
   memory             = "256"
   execution_timeout  = "10"
@@ -61,7 +61,7 @@ resource "yandex_function" "put2base" {
 
   runtime            = "golang121"
   // путь до функции
-  entrypoint         = "Code.PutOneMetric"  
+  entrypoint         = "handlers.PutOneMetric"  
   
   memory             = "256"
   execution_timeout  = "10"
@@ -91,7 +91,7 @@ resource "yandex_function" "readbd" {
 
   runtime            = "golang121"
   // путь до функции
-  entrypoint         = "dbaser.ReadMetrics"  
+  entrypoint         = "handlers.ReadMetrics"  
   
   memory             = "256"
   execution_timeout  = "10"
@@ -121,7 +121,7 @@ resource "yandex_function" "getfrombase" {
 
   runtime            = "golang121"
   // путь до функции
-  entrypoint         = "Code.GetOneMetric"  
+  entrypoint         = "handlers.GetOneMetric"  
   
   memory             = "256"
   execution_timeout  = "10"
@@ -154,20 +154,20 @@ resource "yandex_function_iam_binding" "function-gett" {
   function_id = yandex_function.getfrombase.id
   role        = "functions.functionInvoker"
   members = [
-    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", // список сервисов, которые могут запускать функцию
+    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", 
   ]
 }
 resource "yandex_function_iam_binding" "function-write" {
   function_id = yandex_function.write2bd.id
   role        = "functions.functionInvoker"
   members = [
-    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", // список сервисов, которые могут запускать функцию
+    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", 
   ]
 }
 resource "yandex_function_iam_binding" "function-read" {
   function_id = yandex_function.readbd.id
   role        = "functions.functionInvoker"
   members = [
-    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", // список сервисов, которые могут запускать функцию
+    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", 
   ]
 }

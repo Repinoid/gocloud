@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-
-	"github.com/ydb-platform/ydb-go-sdk/v3/query"
 )
 
 // Sender получает метрики и формирует Body респонса, body выводится на экран
@@ -63,22 +61,8 @@ func WriteMetrics(ctx context.Context) (*Response, error) {
 
 	metras := GetRuntimeMetric()
 
-	err = db.Query().DoTx(ctx, func(ctx context.Context, t query.TxActor) error {
-		for metr, value := range metras {
-			order := ""
-			if metr == "PollCount" { // PollCount - счётчик обновлений метрик, увеличить на 1
-				order = "UPDATE metrics SET value=value+1, updated_at=CurrentUtcDatetime() WHERE metricname = 'PollCount' ;"
-			} else {
-				order = fmt.Sprintf("UPSERT INTO metrics (metricname, value, updated_at) VALUES ('%s', %g, CurrentUtcDatetime() ) ;", metr, value)
-			}
-			err = t.Exec(ctx, order)
+	err = putMetrics2Base(ctx, db, metras)
 
-			if err != nil {
-				return err
-			}
-		}
-		return err
-	})
 	if err != nil {
 		return &Response{
 			StatusCode: http.StatusServiceUnavailable, // 503
@@ -94,7 +78,7 @@ func WriteMetrics(ctx context.Context) (*Response, error) {
 
 // putOneMetrics запись одной метрики в базу данных
 func PutOneMetric(ctx context.Context, event *APIGatewayRequest) (*Response, error) {
-	// формат URL - <apiURL>/update/<mname>/<mvalue>
+	// формат URL - <apiURL>/update/<metric name>/<metric value>
 	operationContext := event.RequestContext.APIGateway.OperationContext
 
 	mname, ok1 := operationContext["mname"]
@@ -114,24 +98,17 @@ func PutOneMetric(ctx context.Context, event *APIGatewayRequest) (*Response, err
 		}, err
 	}
 	defer db.Close(ctx)
-	order := fmt.Sprintf("UPSERT INTO metrics (metricname, value, updated_at) VALUES ('%s', %s, CurrentUtcDatetime() ) ;", mname, mvalue)
 
-	err = db.Query().Exec(ctx, order, query.WithTxControl(query.NoTx()))
-	if err != nil {
-		return &Response{
-			StatusCode: http.StatusServiceUnavailable, // 503
-			Body:       `{"status":"metric was not written to DB"}`,
-		}, err
-	}
+	err = puttyM(ctx, db, mname, mvalue)
 
 	return &Response{
 		StatusCode: 200,
-		Body:       fmt.Sprintf("Ok put metric %s value %s", mname, mvalue),
-	}, nil
+		Body:       fmt.Sprintf("put metric %s value %s", mname, mvalue),
+	}, err
 }
 
 func GetOneMetric(ctx context.Context, event *APIGatewayRequest) (*Response, error) {
-	// формат URL - <apiURL>/update/<mname>/<mvalue>
+	// формат URL - <apiURL>/value/<metric name>
 	operationContext := event.RequestContext.APIGateway.OperationContext
 
 	mname, ok := operationContext["mname"]
@@ -151,23 +128,8 @@ func GetOneMetric(ctx context.Context, event *APIGatewayRequest) (*Response, err
 	}
 	defer db.Close(ctx)
 
-	order := fmt.Sprintf("SELECT value FROM metrics WHERE metricname='%s'; ", mname)
-	row, err := db.Query().QueryRow(ctx, order, query.WithTxControl(query.NoTx()))
-	if err != nil {
-		return &Response{
-			StatusCode: http.StatusServiceUnavailable, // 503
-			Body:       fmt.Sprintf("BAD scan metric %s ", mname),
-		}, err
-	}
+	val, err := gettyM(ctx, db, mname)
 
-	var val float64
-	err = row.Scan(&val)
-	if err != nil {
-		return &Response{
-			StatusCode: http.StatusServiceUnavailable, // 503
-			Body:       fmt.Sprintf("BAD get metric %s value %g", mname, val),
-		}, err
-	}
 	return &Response{
 		StatusCode: http.StatusServiceUnavailable, // 503
 		Body:       fmt.Sprintf("Ok get metric %s value %g", mname, val),
