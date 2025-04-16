@@ -51,6 +51,36 @@ resource "yandex_function" "write2bd" {
         zip_filename =  "goim.zip"  // файл с упакованным кодoм функции
     }
 }
+// запись одной метрики в БД
+resource "yandex_function" "put2base" {
+  name               = "put-to-db"
+  description        = "write one metric to Data Base"
+
+// Для перекомпилляции функции необходимо изменить значение user_hash. Он определяется как хеш архива с кодом
+  user_hash          = data.archive_file.lambda.output_base64sha256 
+
+  runtime            = "golang121"
+  // путь до функции
+  entrypoint         = "Code.PutOneMetric"  
+  
+  memory             = "256"
+  execution_timeout  = "10"
+
+  // service_account_id - от чьего имени запускается функция. см. sas.tf
+  service_account_id = yandex_iam_service_account.ydb-editor-sa.id
+
+  // переменные окружения
+  environment = {
+      AWS_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.ydb-editor-key.access_key
+      AWS_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.ydb-editor-key.secret_key
+      AWS_DEFAULT_REGION    = var.compute-default-zone
+      
+      DATABASE_DSN          = var.dbEndpoint
+    }
+  content {
+        zip_filename =  "goim.zip"  // файл с упакованным кодoм функции
+    }
+}
 // чтение всех метрик из БД
 resource "yandex_function" "readbd" {
   name               = "read-from-db"
@@ -81,8 +111,52 @@ resource "yandex_function" "readbd" {
         zip_filename =  "goim.zip"  // файл с упакованным кодoм функции
     }
 }
+// чтение ONE метрик из БД
+resource "yandex_function" "getfrombase" {
+  name               = "read-one-metric"
+  description        = "read one metric from Data Base"
+
+// Для перекомпилляции функции необходимо изменить значение user_hash. Он определяется как хеш архива с кодом
+  user_hash          = data.archive_file.lambda.output_base64sha256 
+
+  runtime            = "golang121"
+  // путь до функции
+  entrypoint         = "Code.GetOneMetric"  
+  
+  memory             = "256"
+  execution_timeout  = "10"
+
+  // service_account_id - от чьего имени запускается функция. см. sas.tf
+  service_account_id = yandex_iam_service_account.ydb-editor-sa.id
+
+  // переменные окружения
+  environment = {
+      AWS_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.ydb-editor-key.access_key
+      AWS_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.ydb-editor-key.secret_key
+      AWS_DEFAULT_REGION    = var.compute-default-zone
+      
+      DATABASE_DSN          = var.dbEndpoint
+    }
+  content {
+        zip_filename =  "goim.zip"  // файл с упакованным кодoм функции
+    }
+}
 //
 # кто может вызывать функцию:
+resource "yandex_function_iam_binding" "function-putt" {
+  function_id = yandex_function.put2base.id
+  role        = "functions.functionInvoker"
+  members = [
+    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", // список сервисов, которые могут запускать функцию
+  ]
+}
+resource "yandex_function_iam_binding" "function-gett" {
+  function_id = yandex_function.getfrombase.id
+  role        = "functions.functionInvoker"
+  members = [
+    "serviceAccount:${yandex_iam_service_account.invoker-sa.id}", // список сервисов, которые могут запускать функцию
+  ]
+}
 resource "yandex_function_iam_binding" "function-write" {
   function_id = yandex_function.write2bd.id
   role        = "functions.functionInvoker"

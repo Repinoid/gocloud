@@ -34,16 +34,6 @@ paths:
           'text/plain': "Hello, {us}!\n" # для задания имени user https://******.apigw.yandexcloud.net/hello?user=uname
   /mlook:
     get:
-#      summary: goim
-#      operationId: gofu
-      # parameters:
-      #   - name: user
-      #     in: query
-      #     description: User name to appear in greetings
-      #     required: false
-      #     schema:
-      #       type: string
-      #       default: 'world'
       responses:
         '200':
           description: Greeting
@@ -88,4 +78,58 @@ paths:
         type: cloud-functions
         service_account_id: ${invoker_said} # SA для invoker
         function_id: ${fread}  # dbaser.ReadMetrics
+        
+  /update/{mname}/{mvalue}:
+    get:
+      parameters:
+        - name: mname
+          in: path
+          description: Metric Name
+          required: true
+          schema:
+            type: string
+        - name: mvalue
+          in: path
+          description: Metric value
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Ok
+        '503':
+          description: not ok
+      x-yc-apigateway-integration:
+        type: cloud-functions
+        service_account_id: ${invoker_said} # SA для invoker
+        function_id: ${fputt}  # dbaser.PutMetric
+        context:
+          mname: '{mname}'
+          mvalue: '{mvalue}'
+        
+  /value/{mname}:
+    get:
+      parameters:
+        - name: mname
+          in: path
+          description: Metric Name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+        '502':
+          description: not ok
+          content:
+           'text/plain':
+              schema:
+                type: "string"
+                default: "errorrrrrrrrrrrr "    
+      x-yc-apigateway-integration:
+        type: cloud-functions
+        service_account_id: ${invoker_said} # SA для invoker
+        function_id: ${fgett}  # dbaser.GetMetric
+        context:
+          mname: '{mname}'
         
