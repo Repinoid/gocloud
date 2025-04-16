@@ -5,27 +5,27 @@ yc config list
 выведутся все необходимые параметры. 
 скопировать-прописать 
 
-token: y0_AgAAAAAAaYTqAATuwQAAAADa-VEe7cBNbKf-S_GWWXhI7_Owk-3S1f0
-cloud-id: b1gatc4m3hv1ldldhljp
-folder-id: b1gj6dgm692ri5dl865t 
-compute-default-zone: ru-central1-b
+token: y0_AgA......................
+cloud-id: b1gat............
+folder-id: b1gj6dgm..........
+compute-default-zone: ru-central1-?
 
 */
 
 variable "cloud_id" {
 	type = string
-	default = "b1gatc4m3hv1ldldhljp"
+	default = "b1gat..........."
 }
 variable "compute-default-zone" {
 	type = string
-	default = "ru-central1-b"
+	default = "ru-central1-?"
 }
 variable "token" {
 	type = string
-	default = "y0__wgBEOqJpgMYwd0TIL3p7fMRMhA9PqLWjvofO_ynnO8gsmPPqq4"
+	default = "y0__wgB................."
 }
 
 variable "folder_id" {
 	type = string
-	default = "b1gj6dgm692ri5dl865t"
+	default = "b1gj............."
 }
