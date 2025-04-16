@@ -50,3 +50,5 @@ https://yandex.cloud/ru/docs/functions/quickstart/create-function/go-function-qu
 ***Terraform*** https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart<br>
 *Terraform позволяет быстро создать облачную инфраструктуру в Yandex Cloud и управлять ею с помощью файлов конфигураций.*<hr>
 Начнём в п.1 с настройки облака и терраформа и будем добавлять функционал
+
+https://github.com/Repinoid/gocloud/tree/main/1_Genesis
