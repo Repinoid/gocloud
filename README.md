@@ -52,3 +52,5 @@ https://yandex.cloud/ru/docs/functions/quickstart/create-function/go-function-qu
 Начнём в п.1 с настройки облака и терраформа и будем добавлять функционал
 
 https://github.com/Repinoid/gocloud/tree/main/1_Genesis
+
+Telegram @IBM2702
