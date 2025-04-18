@@ -2,3 +2,4 @@ terraform*
 .terraform*
 *.exe
 *.zip
+variables.tf
